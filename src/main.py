@@ -1,11 +1,48 @@
 # Resolve the problem!!
 import string
+from random import randint
+
 
 SYMBOLS = list('!"#$%&\'()*+,-./:;?@[]^_`{|}~')
+LOWER = 0
+UPPER = 1
+SYMBOL = 2
+NUMBER = 3
+LOWER_START = 97
+LOWER_END = 122
+UPPER_START = 65
+UPPER_END = 90
+MIN_SIZE = 8
+MAX_SIZE = 16
 
 
 def generate_password():
-    # Start coding here
+    password = ''
+    length = randint(MIN_SIZE, MAX_SIZE)
+    for index in range(0, length):
+        character = ''
+        char_type = randint(0, 3)
+
+        if index % 7 == 0:
+            char_type = SYMBOL
+        elif index % 5 == 0:
+            char_type = NUMBER
+        elif index % 3 == 0:
+            char_type = UPPER
+        elif index % 2 == 0:
+            char_type = LOWER            
+
+        if char_type == LOWER:
+            character = chr(randint(LOWER_START, LOWER_END))
+        elif char_type == UPPER:
+            character = chr(randint(UPPER_START, UPPER_END))
+        elif char_type == SYMBOL:
+            character = SYMBOLS[randint(0, len(SYMBOLS) - 1)]
+        else:
+            character = f'{randint(0, 9)}'
+
+        password += character
+    return password
 
 
 def validate(password):
